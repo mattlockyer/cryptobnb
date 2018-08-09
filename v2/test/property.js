@@ -47,7 +47,7 @@ contract('Property Contract Tests', function(accounts) {
       assert(true, 'URI was set');
     }
     const uri = await property.getURI.call(1);
-    assert(uri !== _uri, 'URI was NOT set');
+    assert(uri !== _uri, 'URI was set when it SHOULD NOT BE');
   });
   
 });
