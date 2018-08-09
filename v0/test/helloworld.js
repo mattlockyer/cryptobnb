@@ -29,7 +29,7 @@ contract('HelloWorld Contract Tests', function(accounts) {
       const tx = await helloWorld.hello(message, { from: bob }); //say message value from Bob
       assert(false, 'Bob COULD say "' + message + '"'); //if we can do this, something wrong
     } catch(e) {
-      assert(true, 'Bob could NOT say "' + message + '"');//this should happen
+      assert(true, 'Bob could say "' + message + '"');//this should happen
     }
   });
   
