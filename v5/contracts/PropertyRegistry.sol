@@ -57,13 +57,21 @@ contract PropertyRegistry {
   function checkIn(uint256 _tokenId) external {
     require(stayData[_tokenId].approved == msg.sender);
     require(now > stayData[_tokenId].checkIn);
+    //REQUIRED: transfer tokens to propertyRegistry upon successful check in
+    //this == this contract address
+    require(propertyToken.transferFrom(msg.sender, this, stayData[_tokenId].price));
+    //move approved guest to occupant
     stayData[_tokenId].occupant = stayData[_tokenId].approved;
   }
   
   function checkOut(uint256 _tokenId) external {
     require(stayData[_tokenId].occupant == msg.sender);
     require(now < stayData[_tokenId].checkOut);
+    //REQUIRED: transfer tokens to Alice upon successful check out
+    require(propertyToken.transfer(property.ownerOf(_tokenId), stayData[_tokenId].price));
+    //clear the request to let another guest request
     stayData[_tokenId].requested = address(0);
+    stayData[_tokenId].stays++;
   }
   
 }

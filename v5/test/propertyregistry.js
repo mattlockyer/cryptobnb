@@ -31,14 +31,33 @@ contract('Property Registry Contract Tests', function(accounts) {
     assert(propertyRegistry !== undefined, 'PropertyRegistry was NOT deployed');
   });
   
+  /**************************************
+  * Using Property Tokens
+  **************************************/
+  
   it('should allow alice to mint Property Token for bob', async () => {
+  
+    console.log('Property Token Integration');
+    
     const tx = await propertyToken.mint(bob, allocation);
-    //get the tokenId a the 0 index position
+    //get the balance of property tokens for bob
     const balance = await propertyToken.balanceOf.call(bob);
     assert(balance.toNumber() === allocation, 'balance');
   });
   
+  it('should allow bob to approve the property registry to use his tokens', async () => {
+    const tx = await propertyToken.approve(propertyRegistry.address, price, { from: bob });
+    assert(tx !== undefined, 'property registry has not been approved');
+  });
+  
+  /**************************************
+  * Resume Property Registry tests using Tokens
+  **************************************/
+  
   it('should allow alice to create a property with tokenId 1', async () => {
+    
+    console.log('Using Property Registry with Tokens (paying for check in)');
+    
     const tx = await property.createProperty();
     //get the tokenId a the 0 index position
     const tokenId = await property.tokenOfOwnerByIndex.call(alice, 0);
@@ -110,7 +129,20 @@ contract('Property Registry Contract Tests', function(accounts) {
     const tx = await propertyRegistry.checkOut(1, { from: bob });
     //get the tokenId a the 0 index position
     const data = await propertyRegistry.stayData.call(1);
-    assert(data[2] !== bob, 'bob is not able to check out');
+    assert(data[2] !== bob, 'bob was not able to check out');
+  });
+  
+  it('should have paid alice the tokens for the stay', async () => {
+    const data = await propertyRegistry.stayData.call(1);
+    assert(data[1].toNumber() === 1, 'stay was not recorded');
+  });
+  /**************************************
+  * Check token balance
+  **************************************/
+  it('should have paid alice the tokens for the stay', async () => {
+    console.log('Property Token Balance Check for Alice');
+    const balance = await propertyToken.balanceOf.call(alice);
+    assert(balance.toNumber() === price, 'alice token balance is wrong');
   });
   
 });
