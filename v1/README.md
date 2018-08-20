@@ -38,3 +38,5 @@ contract HelloWorld is Ownable {
   ...
 }
 ```
+### Ownable.sol
+For more details on `Ownable.sol` [visit here](https://github.com/OpenZeppelin/openzeppelin-solidity/blob/master/contracts/ownership/Ownable.sol).
