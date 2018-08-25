@@ -1,0 +1,31 @@
+
+
+* {
+  box-sizing:border-box;
+}
+
+body {
+  margin:0;
+}
+
+.margin-16 {
+  margin:16px;
+}
+
+.padding-16 {
+  padding:16px;
+}
+
+.center {
+  text-align:center;
+}
+
+.hidden {
+  display:none;
+}
+
+button {
+  border: 1px solid #444;
+  background: #EEE;
+  margin:16px 0px;
+}
