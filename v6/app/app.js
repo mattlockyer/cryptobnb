@@ -14,6 +14,8 @@ const App = {
   
   async init() {
     await Property.init(); //wait until the property is initialized
+    await PropertyToken.init(); //wait until the property token is initialized
+    await PropertyRegistry.init(); //wait until the property registry is initialized
     
     const { accounts } = web3.eth;
     //console.log(accounts);
@@ -46,17 +48,21 @@ const App = {
   },
   
   async updateData(msg) {
-    // qs('#msg').innerHTML = msg ? msg : await Property.contract.message.call();
-    // qs('#price').innerHTML = toEth(await Property.contract.price.call());
-    // if (this.users.length === 1) {
-    //   qs('#owner').innerHTML = await Property.contract.owner.call();
-    // } else {
-    //   qs('#owner').innerHTML = (await Property.contract.owner.call() == this.alice ? 'Alice' : 'Bob');
-    // }
-    // //balances
-    // this.users.forEach(async (name) => {
-    //   web3.eth.getBalance(this[name], (err, res) => qs('#balance-' + name).innerHTML = toEth(res));
-    // })
+    const { alice, bob } = this;
+    /**************************************
+    * Reads
+    * potentially break these up into serparate functions
+    * only when transactions / events affect these functions should we read again
+    **************************************/
+    //property token balances
+    qs('#balance-alice').innerHTML = await PropertyToken.contract.balanceOf.call(alice);
+    qs('#balance-bob').innerHTML = await PropertyToken.contract.balanceOf.call(bob);
+    //properties owned
+    const aliceProperties = await Property.contract.getProperties.call({ from: alice });
+    qs('#properties-alice').innerHTML = aliceProperties.length ? aliceProperties : 'no properties';
+    const bobProperties = await Property.contract.getProperties.call({ from: bob });
+    qs('#properties-bob').innerHTML = bobProperties.length ? bobProperties : 'no properties';
+    
   }
   
 };

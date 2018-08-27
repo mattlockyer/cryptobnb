@@ -21,6 +21,17 @@ contract PropertyRegistry {
   }
   mapping(uint256 => Data) public stayData;
   
+  /**************************************
+  * Events
+  **************************************/
+  
+  //events only need a key, all data is stored in stayData
+  event Registered(uint256 indexed _tokenId);
+  event Approved(uint256 indexed _tokenId);
+  event Requested(uint256 indexed _tokenId);
+  event CheckIn(uint256 indexed _tokenId);
+  event CheckOut(uint256 indexed _tokenId);
+  
   //modifier leveraging property contract
   modifier onlyOwner(uint256 _tokenId) {
     require(property.ownerOf(_tokenId) == msg.sender);
@@ -33,15 +44,37 @@ contract PropertyRegistry {
     propertyToken = ERC20(_propertyToken);
   }
   
+  function getStayData(uint256 _tokenId) external view returns(
+    uint256,
+    uint256,
+    address,
+    address,
+    address,
+    uint256,
+    uint256
+  ) {
+    return (
+      stayData[_tokenId].price,
+      stayData[_tokenId].stays,
+      stayData[_tokenId].requested,
+      stayData[_tokenId].approved,
+      stayData[_tokenId].occupant,
+      stayData[_tokenId].checkIn,
+      stayData[_tokenId].checkOut
+    );
+  }
+  
   /**************************************
   * Owner functions
   **************************************/
   function registerProperty(uint256 _tokenId, uint256 _price) external onlyOwner(_tokenId) {
     stayData[_tokenId] = Data(_price, 0, address(0), address(0), address(0), 0, 0);
+    emit Registered(_tokenId);
   }
   
   function approveRequest(uint256 _tokenId) external onlyOwner(_tokenId) {
     stayData[_tokenId].approved = stayData[_tokenId].requested;
+    emit Approved(_tokenId);
   }
   
   /**************************************
@@ -52,6 +85,7 @@ contract PropertyRegistry {
     stayData[_tokenId].requested = msg.sender;
     stayData[_tokenId].checkIn = _checkIn;
     stayData[_tokenId].checkOut = _checkOut;
+    emit Requested(_tokenId);
   }
   
   function checkIn(uint256 _tokenId) external {
@@ -62,6 +96,7 @@ contract PropertyRegistry {
     require(propertyToken.transferFrom(msg.sender, this, stayData[_tokenId].price));
     //move approved guest to occupant
     stayData[_tokenId].occupant = stayData[_tokenId].approved;
+    emit CheckIn(_tokenId);
   }
   
   function checkOut(uint256 _tokenId) external {
@@ -72,6 +107,7 @@ contract PropertyRegistry {
     //clear the request to let another guest request
     stayData[_tokenId].requested = address(0);
     stayData[_tokenId].stays++;
+    emit CheckOut(_tokenId);
   }
   
 }

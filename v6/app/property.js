@@ -1,12 +1,11 @@
 //jshint ignore: start
 
-const config = {
-  host: 'http://127.0.0.1:9545/', //truffle develop provider
-  contractAddress: null, //will be automatically discovered by trufflecontract.js
-}
-
 const Property = {
   
+  config: {
+    host: 'http://127.0.0.1:9545/', //truffle develop provider
+    contractAddress: null, //will be automatically discovered by trufflecontract.js
+  },
   contractName: 'Property',
   path: '../build/contracts/',
   contract: null,
@@ -17,14 +16,14 @@ const Property = {
   **************************************/
   async init() {
     console.log(this.contractName + ' initialized');
-    utils.getWeb3(config.host);
+    utils.getWeb3(this.config.host);
     this.block = 0;
     //this.block = web3.eth.blockNumber(console.log);
     web3.eth.getAccounts((err, accounts) => {
       this.currentUser = accounts[0];
     });
     const json = await fetch(this.path + this.contractName + '.json').then((res) => res.json());
-    this.contract = await utils.getContract(json, config.contractAddress);
+    this.contract = await utils.getContract(json, this.config.contractAddress);
     this.setEventListeners();
   },
   /**************************************
