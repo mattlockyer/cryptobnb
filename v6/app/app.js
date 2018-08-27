@@ -35,13 +35,18 @@ const App = {
   },
   
   setEventListeners() {
+    const { alice, bob } = this;
     //creating property
     qs('#create-property-alice').onclick = async () => {
       try {
         const tx = await Property.contract.createProperty({
-          from: this.alice
+          from: alice,
+          gas: 250000
         });
+        console.log(tx);
+        console.log('Property Created for Alice');
       } catch(e) {
+        console.log(e);
         alert('Error creating property', e)
       }
     }
