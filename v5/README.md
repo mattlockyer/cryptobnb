@@ -8,8 +8,8 @@ In this example we're going to be adding a standard ERC20 token and using this t
 
 `PropertyToken.sol` is a simple contract importing 2 open zeppelin contracts:
 ```
-import 'zeppelin-solidity/contracts/token/ERC20/DetailedERC20.sol';
-import 'zeppelin-solidity/contracts/token/ERC20/MintableToken.sol';
+import 'openzeppelin-solidity/contracts/token/ERC20/DetailedERC20.sol';
+import 'openzeppelin-solidity/contracts/token/ERC20/MintableToken.sol';
 ```
 These two contracts come with all the features we need to represent an ERC20. In our test cases, as always, `account[0]` is the owner, so they will be able to mint and transfer the property tokens.
 
@@ -20,7 +20,7 @@ Now that we have property tokens, a guest should be able to check in and check o
 The first is to maintain a reference to the deployed instance of `PropertyToken.sol` like we did with the ERC721 tokens from `Property.sol` in the previous example `v3`. Here are the relevant portions of code for that:
 ```
 ...
-import 'zeppelin-solidity/contracts/token/ERC20/ERC20.sol';
+import 'openzeppelin-solidity/contracts/token/ERC20/ERC20.sol';
 contract PropertyRegistry {
   ERC20 propertyToken;
   ...
