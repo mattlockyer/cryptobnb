@@ -24,13 +24,13 @@ mapping (uint256 => address) internal tokenOwner;
 The rest of the ERC-721 standard and Zeppelin contracts is rather complex due to the Zeppelin teams implementation. It relies heavily on inheritence and interfaces, a bit beyond the scope of these tutorials. However here are the most useful links for futher research:
 
 The basic token functionality. Most of the functions you would need to reference are implemented here. This can be great for learning but it is quite a big contract and complex.
-(ERC721BasicToken.sol)[https://github.com/OpenZeppelin/openzeppelin-solidity/blob/master/contracts/token/ERC721/ERC721BasicToken.sol]
+(ERC721BasicToken.sol)[https://github.com/OpenZeppelin/openzeppelin-solidity/blob/master/contracts/token/ERC721/ERC721.sol]
 
 The minimum standard interface functions. This contract implements the above contract.
-(ERC721Token.sol)[https://github.com/OpenZeppelin/openzeppelin-solidity/blob/master/contracts/token/ERC721/ERC721Token.sol]
+(ERC721Token.sol)[https://github.com/OpenZeppelin/openzeppelin-solidity/blob/master/contracts/token/ERC721/IERC721.sol]
 
 The main interface, for using basic ERC-721 tokens from another contract. You would implement this to `cast` an address as an ERC-721 token so you can use it's functions directly from the calling contract. We'll do this later in our property examples.
-(ERC721Basic.sol)[https://github.com/OpenZeppelin/openzeppelin-solidity/blob/master/contracts/token/ERC721/ERC721Basic.sol]
+(ERC721Basic.sol)[https://github.com/OpenZeppelin/openzeppelin-solidity/blob/master/contracts/token/ERC721/IERC721Full.sol]
 
 The root folder of all ERC-721 contracts.
 (ERC721 Folder)[https://github.com/OpenZeppelin/openzeppelin-solidity/tree/master/contracts/token/ERC721]
