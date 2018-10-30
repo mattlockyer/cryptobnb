@@ -2,8 +2,8 @@
 
 pragma solidity ^0.4.24;
 
-import '../../vendor/zeppelin-solidity/contracts/token/ERC721/ERC721Basic.sol';
-import '../../vendor/zeppelin-solidity/contracts/token/ERC20/ERC20.sol';
+import 'zeppelin-solidity/contracts/token/ERC721/ERC721Basic.sol';
+import 'zeppelin-solidity/contracts/token/ERC20/ERC20.sol';
 
 contract PropertyRegistry {
   
