@@ -24,7 +24,7 @@ We'll need to add more data fields to this struct in later examples but this sho
 
 In order to check that the user registering the property owns the ERC721 token that represents their property, we'll need to import the interface for ERC721 into this contract. This is so we can cast the address of the deployed `Property.sol` contract as an ERC721 and use it's methods.
 ```
-import 'openzeppelin-solidity/contracts/token/ERC721/ERC721Basic.sol';
+import 'zeppelin-solidity/contracts/token/ERC721/ERC721Basic.sol';
 ```
 We'll also need to store the address of the deployed `Property.sol` contract. We do this by passing it into the constructor of the `PropertyRegistry.sol` contract upon deployment of the registry. This will ensure we can reference the ERC721 tokens that represent properties users want to list and we can verify they own those properties.
 ```

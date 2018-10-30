@@ -14,7 +14,7 @@ In this example you'll understand the use of the following Solidity concepts:
 ### Imports
 We can import the code from other smart contracts similar to a ruby or javascript style import statement. For contracts that are in the `node_modules` folder, we only need to start with the root sub-folder. In our case that will be `zeppelin-solidity`.
 ```
-import 'openzeppelin-solidity/contracts/ownership/Ownable.sol';
+import 'zeppelin-solidity/contracts/ownership/Ownable.sol';
 ```
 ### Inheritence
 Contracts can `be` the type of an imported contract, or implement an interface if the contract has not fully implemented it's methods.
