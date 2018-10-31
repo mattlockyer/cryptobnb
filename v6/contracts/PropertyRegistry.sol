@@ -2,11 +2,11 @@
 
 pragma solidity ^0.4.24;
 
-import 'openzeppelin-solidity/contracts/token/ERC721/ERC721Basic.sol';
-import 'openzeppelin-solidity/contracts/token/ERC20/ERC20.sol';
+import 'zeppelin-solidity/contracts/token/ERC721/ERC721Basic.sol';
+import 'zeppelin-solidity/contracts/token/ERC20/ERC20.sol';
 
 contract PropertyRegistry {
-
+  
   //data
   ERC721Basic property;
   ERC20 propertyToken;
@@ -20,30 +20,30 @@ contract PropertyRegistry {
     uint256 checkOut;
   }
   mapping(uint256 => Data) public stayData;
-
+  
   /**************************************
   * Events
   **************************************/
-
+  
   //events only need a key, all data is stored in stayData
   event Registered(uint256 indexed _tokenId);
   event Approved(uint256 indexed _tokenId);
   event Requested(uint256 indexed _tokenId);
   event CheckIn(uint256 indexed _tokenId);
   event CheckOut(uint256 indexed _tokenId);
-
+  
   //modifier leveraging property contract
   modifier onlyOwner(uint256 _tokenId) {
     require(property.ownerOf(_tokenId) == msg.sender);
     _;
   }
-
+  
   //add Property and PropertyToken minimum interfaces to this contract
   constructor(address _property, address _propertyToken) public {
     property = ERC721Basic(_property);
     propertyToken = ERC20(_propertyToken);
   }
-
+  
   function getStayData(uint256 _tokenId) external view returns(
     uint256,
     uint256,
@@ -63,7 +63,7 @@ contract PropertyRegistry {
       stayData[_tokenId].checkOut
     );
   }
-
+  
   /**************************************
   * Owner functions
   **************************************/
@@ -71,12 +71,12 @@ contract PropertyRegistry {
     stayData[_tokenId] = Data(_price, 0, address(0), address(0), address(0), 0, 0);
     emit Registered(_tokenId);
   }
-
+  
   function approveRequest(uint256 _tokenId) external onlyOwner(_tokenId) {
     stayData[_tokenId].approved = stayData[_tokenId].requested;
     emit Approved(_tokenId);
   }
-
+  
   /**************************************
   * Guest Functions
   **************************************/
@@ -87,7 +87,7 @@ contract PropertyRegistry {
     stayData[_tokenId].checkOut = _checkOut;
     emit Requested(_tokenId);
   }
-
+  
   function checkIn(uint256 _tokenId) external {
     require(stayData[_tokenId].approved == msg.sender);
     require(now > stayData[_tokenId].checkIn);
@@ -98,7 +98,7 @@ contract PropertyRegistry {
     stayData[_tokenId].occupant = stayData[_tokenId].approved;
     emit CheckIn(_tokenId);
   }
-
+  
   function checkOut(uint256 _tokenId) external {
     require(stayData[_tokenId].occupant == msg.sender);
     require(now < stayData[_tokenId].checkOut);
@@ -109,5 +109,5 @@ contract PropertyRegistry {
     stayData[_tokenId].stays++;
     emit CheckOut(_tokenId);
   }
-
+  
 }

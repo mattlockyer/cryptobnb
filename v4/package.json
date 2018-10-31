@@ -1,5 +1,18 @@
 {
+  "name": "v4",
+  "version": "1.0.0",
+  "description": "## Working with Time",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    "openzeppelin-solidity": "^1.12.0"
+    "zeppelin-solidity": "^1.11.0"
   }
 }

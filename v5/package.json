@@ -1,5 +1,18 @@
 {
+  "name": "v5",
+  "version": "1.0.0",
+  "description": "## Introducing Property Token and Registering a Property",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    "openzeppelin-solidity": "^1.12.0"
+    "zeppelin-solidity": "^1.11.0"
   }
 }

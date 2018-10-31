@@ -1,5 +1,18 @@
 {
+  "name": "v2",
+  "version": "1.0.0",
+  "description": "In this example we'll import the standard ERC-721 Non-Fungible Token (NFT) from `open-zeppelin`. This will allow us to create a unique, ownable token for each unique address that chooses to participate in our property system. There is also the ability to create an auction contract and sell a property token to another user, but that falls outside the scope of these examples. For now, we will use an NFT to represent a property and setting a URI for the property data, which we can store off-chain and offer the URI as a public GET endpoint.",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
   "dependencies": {
-    "openzeppelin-solidity": "^1.12.0"
-  }
+    "zeppelin-solidity": "^1.11.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
 }
