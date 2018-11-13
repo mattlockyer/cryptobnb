@@ -13,9 +13,9 @@ contract PropertyRegistry {
   struct Data {
     uint256 price;
     uint256 stays;
+    address occupant;
     address requested;
     address approved;
-    address occupant;
     uint256 checkIn;
     uint256 checkOut;
   }
@@ -64,6 +64,9 @@ contract PropertyRegistry {
     require(stayData[_tokenId].occupant == msg.sender);
     require(now < stayData[_tokenId].checkOut);
     stayData[_tokenId].requested = address(0);
+    stayData[_tokenId].occupant = address(0);
+    stayData[_tokenId].stays++;
+
   }
   
 }
