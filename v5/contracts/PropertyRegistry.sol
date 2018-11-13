@@ -71,6 +71,7 @@ contract PropertyRegistry {
     require(propertyToken.transfer(property.ownerOf(_tokenId), stayData[_tokenId].price));
     //clear the request to let another guest request
     stayData[_tokenId].requested = address(0);
+    stayData[_tokenId].occupant = address(0);
     stayData[_tokenId].stays++;
   }
   
